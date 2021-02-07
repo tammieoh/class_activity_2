@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText_city;
 
     private static final String api_key = "8c8635879855e02e04a57ffa2607a6c0";
-    private static String api_url = "http://api.openweathermap.org/data/2.5/weather?q=";
+    private static String api_url = "http://api.openweathermap.org/data/2.5/forecast?q=";
 //    api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
     private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -60,15 +62,39 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     JSONObject json = new JSONObject(new String(responseBody));
-                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                    intent.putExtra("city_name", json.getString("name"));
-                    intent.putExtra("country_name", json.getJSONObject("sys").getString("country"));
-                    intent.putExtra("city_weather", json.getJSONArray("weather").getJSONObject(0).getString("description"));
-                    intent.putExtra("city_high", json.getJSONObject("main").getString("temp_max"));
-                    intent.putExtra("city_low", json.getJSONObject("main").getString("temp_min"));
-                    intent.putExtra("city_feels", json.getJSONObject("main").getString("feels_like"));
+//                    ArrayList<ArrayList<String>> days = new ArrayList<>();
+                    ArrayList<String> date_time_array = new ArrayList<>();
+                    ArrayList<String> desc_array = new ArrayList<>();
+                    ArrayList<String> feels_array = new ArrayList<>();
 
-                    Log.d("api_error", "error with intent");
+                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    intent.putExtra("city_name", json.getJSONObject("city").getString("name"));
+                    intent.putExtra("country_name", json.getJSONObject("city").getString("country"));
+
+                    for(int i = 0; i < json.getJSONArray("list").length(); i++) {
+//                        ArrayList<String> day_hourly = new ArrayList<>();
+                        date_time_array.add(json.getJSONArray("list").getJSONObject(i).getString("dt_txt"));
+                        desc_array.add(json.getJSONArray("list").getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("description"));
+                        feels_array.add(json.getJSONArray("list").getJSONObject(i).getJSONObject("main").getString("feels_like"));
+                    }
+                    intent.putExtra("city_dateTime", date_time_array);
+                    intent.putExtra("city_desc", desc_array);
+                    intent.putExtra("city_feels", feels_array);
+
+//                    intent.putExtra("city_date", json.getJSONArray("list").getJSONObject(8).getString("dt_txt"));
+//                    intent.putExtra("city_weather", json.getJSONArray("list").getJSONArray(2).getJSONObject(0).getString("description"));
+//                    intent.putExtra("city_feels", json.getJSONArray("list").getJSONObject(1).getString("feels_like"));
+//                    intent.putExtra("city_weather", json.getJSONArray("weather").getJSONObject(0).getString("description"));
+//                    intent.putExtra("city_feels", json.getJSONObject("main").getString("feels_like"));
+
+//                    Log.d("city_date", json.getJSONArray("list").getJSONObject(8).getString("dt_txt"));
+
+//                    Log.d("city_weather",json.getJSONArray("list").getJSONArray(2).getJSONObject(0).getString("description"));
+//                    Log.d("city_info",json.getJSONArray("list").getJSONObject(1).getString("feels_like"));
+//                    Log.d("city_name",json.getJSONObject("city").getString("name"));
+//                    Log.d("country_name",json.getJSONObject("city").getString("country"));
+
+//                    Log.d("api_error", "error with intent");
                     startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();
