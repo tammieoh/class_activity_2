@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Class Activity 2</string>
+    <string name="app_name">Class Activity 3</string>
     <string name="second_activity">SecondActivity</string>
     <string name="city_hint">Enter city name</string>
     <string name="go_button">Go</string>
