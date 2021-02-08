@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,6 +24,7 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private Button go_button;
     private EditText editText_city;
+//    private TextView date_time, description, feels_like, temperature;
 
     private static final String api_key = "8c8635879855e02e04a57ffa2607a6c0";
     private static String api_url = "http://api.openweathermap.org/data/2.5/forecast?q=";
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
         go_button = findViewById(R.id.go_button);
         editText_city = findViewById(R.id.city_editText);
+//        date_time = findViewById(R.id.date_time);
+//        description = findViewById(R.id.description);
+//        feels_like = findViewById(R.id.feels_like);
+//        temperature = findViewById(R.id.temp);
 
         go_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 String message = "No city found.";
                 intent.putExtra("no_city", message);
+//                date_time.setVisibility(View.INVISIBLE);
+//                description.setVisibility(View.INVISIBLE);
+//                feels_like.setVisibility(View.INVISIBLE);
+//                temperature.setVisibility(View.INVISIBLE);
 
                 startActivity(intent);
             }

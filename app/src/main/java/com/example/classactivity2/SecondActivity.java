@@ -2,6 +2,8 @@ package com.example.classactivity2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 public class SecondActivity extends AppCompatActivity {
 
     private String city_name, country_name, city_weather, city_high, city_low, city_feels;
-    private TextView no_city, name_text,date_time, desc_text, feels_text;
+    private TextView no_city, name_text,date_time, desc_text, feels_text, temp_text;
     private RecyclerView recyclerView;
     private ArrayList<Day> days;
     private ArrayList<String> date_time_arr, desc_arr, feels_arr;
@@ -39,6 +41,7 @@ public class SecondActivity extends AppCompatActivity {
 //        high_text = findViewById(R.id.high_num);
 //        low_text = findViewById(R.id.low_num);
         feels_text = findViewById(R.id.feels_like);
+        temp_text = findViewById(R.id.temp);
 
         Intent intent = getIntent();
 
@@ -46,12 +49,14 @@ public class SecondActivity extends AppCompatActivity {
             no_city.setText(intent.getStringExtra("no_city"));
         }
         else {
-            Bundle extra = intent.getExtras();
+
             city_name = intent.getStringExtra("city_name");
             country_name = intent.getStringExtra("country_name");
             date_time_arr = intent.getStringArrayListExtra("city_dateTime");
             desc_arr = intent.getStringArrayListExtra("city_desc");
             feels_arr = intent.getStringArrayListExtra("city_feels");
+
+            name_text.setText(city_name + ", " + country_name);
 
             for(int i = 0; i < date_time_arr.size(); i++) {
                 Day day = new Day(date_time_arr.get(i),
@@ -62,6 +67,7 @@ public class SecondActivity extends AppCompatActivity {
 
             // create a day adapter
             DayAdapter adapter = new DayAdapter(days);
+            System.out.println(adapter.getItemCount());
             // attach the adapter to the recyclerView
             recyclerView.setAdapter(adapter);
 
@@ -90,7 +96,7 @@ public class SecondActivity extends AppCompatActivity {
 //            city_low = intent.getStringExtra("city_low");
 //            city_feels = intent.getStringExtra("city_feels");
 
-            name_text.setText(city_name + ", " + country_name);
+
 //            desc_text.setText(city_weather);
 //            high_text.setText(city_high);
 //            low_text.setText(city_low);
