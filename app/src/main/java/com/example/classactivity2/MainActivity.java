@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 // when you get a 400-499 status code
                 Log.e("api error", new String(responseBody));
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
                 String message = "No city found.";
                 intent.putExtra("no_city", message);
 //                date_time.setVisibility(View.INVISIBLE);

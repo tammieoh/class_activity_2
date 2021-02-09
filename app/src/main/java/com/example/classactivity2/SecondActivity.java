@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class SecondActivity extends AppCompatActivity {
 
     private String city_name, country_name, city_weather, city_high, city_low, city_feels;
-    private TextView no_city, name_text,date_time, desc_text, feels_text, temp_text;
+    private TextView name_text,date_time, desc_text, feels_text, temp_text;
     private RecyclerView recyclerView;
     private ArrayList<Day> days;
     private ArrayList<String> date_time_arr, desc_arr, feels_arr;
@@ -34,7 +34,7 @@ public class SecondActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_days);
         days = new ArrayList<>();
 
-        no_city = findViewById(R.id.no_city);
+
         name_text = findViewById(R.id.city_state);
         date_time = findViewById(R.id.date_time);
         desc_text = findViewById(R.id.description);
@@ -45,10 +45,7 @@ public class SecondActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.hasExtra("no_city")) {
-            no_city.setText(intent.getStringExtra("no_city"));
-        }
-        else {
+
 
             city_name = intent.getStringExtra("city_name");
             country_name = intent.getStringExtra("country_name");
@@ -88,7 +85,7 @@ public class SecondActivity extends AppCompatActivity {
 //                        villagerObject.getString("house"));
 //                villagers.add(villager);
 //            }
-        }
+
 
 
 //            city_weather = intent.getStringExtra("city_weather");
